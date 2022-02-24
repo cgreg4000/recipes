@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+</head>
+<body>
+    <h1>Edit Recipe</h1>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+        {% for message in messages %}            <!-- loop through the messages -->
+            <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <form action="/recipes/{{recipe.id}}/update" method="post">
+        Name:<input type="text" name="recipe_name" id="" value="{{recipe.name}}"><br>
+        Description:<textarea name="recipe_description" id="" cols="30" rows="10">{{recipe.description}}</textarea><br>
+        Instructions:<textarea name="recipe_instructions" id="" cols="30" rows="10">{{recipe.instructions}}</textarea><br>
+        Date Made On:<input type="date" name="recipe_date" value="{{recipe.date_made}}">
+        <p>Under 30 minutes?</p>
+        {% if recipe.under_30 == 'Yes': %}
+            Yes<input type="radio" name="under_30" id="Yes" value="Yes" checked>
+            No<input type="radio" name="under_30" id="No" value="No"><br>
+        {% else %}
+            Yes<input type="radio" name="under_30" id="Yes" value="Yes">
+            No<input type="radio" name="under_30" id="No" value="No" checked><br>
+        {% endif %}
+        <input type="submit" name="" id="" value="Update">
+    </form>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>
